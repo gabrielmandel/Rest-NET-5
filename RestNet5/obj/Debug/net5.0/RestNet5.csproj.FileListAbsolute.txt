@@ -27,3 +27,10 @@ C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\obj\Debug\net5.0\RestNet5.dll
 C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\obj\Debug\net5.0\ref\RestNet5.dll
 C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\obj\Debug\net5.0\RestNet5.pdb
 C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\obj\Debug\net5.0\RestNet5.genruntimeconfig.cache
+C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\bin\Debug\net5.0\MySqlConnector.dll
+C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\bin\Debug\net5.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll

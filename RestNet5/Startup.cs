@@ -6,11 +6,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RestNet5.Model.Context;
+using RestNet5.Business.Implementations;
+using RestNet5.Repository.Implementations;
 
 namespace RestNet5
 {
@@ -28,6 +32,13 @@ namespace RestNet5
         {
 
             services.AddControllers();
+
+            var connectionString = Configuration["MySqlConnection:MySqlConnectionString"];
+            services.AddDbContext<MySqlContext>(options =>options.UseMySql(connectionString, 
+                                                ServerVersion.AutoDetect(connectionString)));
+            //Dependency Injection
+            services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
+            services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestNet5", Version = "v1" });
