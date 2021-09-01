@@ -15,5 +15,6 @@ namespace RestNet5.Model.Context
         }
 
         public DbSet<Person> People { get; set; }
+        public DbSet<BookVO> Books { get; set; }
     }
 }
