@@ -6,34 +6,34 @@ namespace RestNet5.Business.Implementations
 {
     public class BookBusinessImplementation : IBookBusiness
     {
-        private readonly IRepository<BookVO> _repository;
+        private readonly IRepository<Book> _repository;
 
-        public BookBusinessImplementation(IRepository<BookVO> repository)
+        public BookBusinessImplementation(IRepository<Book> repository)
         {
             _repository = repository;
         }
 
-        public BookVO Create(BookVO book)
+        public Book Create(Book book)
         {
             return _repository.Create(book);
         }
-
+                                        
         public void Delete(long id)
         {
             _repository.Delete(id);
         }
 
-        public List<BookVO> FindAll()
+        public List<Book> FindAll()
         {
            return _repository.FindAll();
         }
 
-        public BookVO FindById(long id)
+        public Book FindById(long id)
         {
             return _repository.FindById(id);
         }
 
-        public BookVO Update(BookVO book)
+        public Book Update(Book book)
         {
             return _repository.Update(book);
         }

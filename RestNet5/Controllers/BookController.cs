@@ -42,7 +42,7 @@ namespace RestNet5.Controllers
         }
 
         [HttpPost()]
-        public IActionResult Post([FromBody] BookVO book)
+        public IActionResult Post([FromBody] Book book)
         {
             if (book == null)
             {
@@ -53,7 +53,7 @@ namespace RestNet5.Controllers
         }
 
         [HttpPut()]
-        public IActionResult Put([FromBody] BookVO book)
+        public IActionResult Put([FromBody] Book book)
         {
             if (book == null)
             {

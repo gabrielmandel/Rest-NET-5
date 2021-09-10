@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace RestNet5.Data.Converter.Implementations
 {
-    public class PersonConverter : IParser<PersonVO, Person>, IParser<Person, PersonVO>
+    public class PersonConverter : IParser<VO.PersonVO, Model.Person>, IParser<Model.Person, VO.PersonVO>
     {
-        public Person Parse(PersonVO origin)
+        public Model.Person Parse(VO.PersonVO origin)
         {
             if (origin == null)
             {
                 return null;
             }
 
-            return new Person
+            return new Model.Person
             {
                 Id = origin.Id,
                 FirstName = origin.FirstName,
@@ -27,14 +27,14 @@ namespace RestNet5.Data.Converter.Implementations
             };
         }
 
-        public PersonVO Parse(Person origin)
+        public VO.PersonVO Parse(Model.Person origin)
         {
             if (origin == null)
             {
                 return null;
             }
 
-            return new PersonVO
+            return new VO.PersonVO
             {
                 Id = origin.Id,
                 FirstName = origin.FirstName,
@@ -44,7 +44,7 @@ namespace RestNet5.Data.Converter.Implementations
             };
         }
 
-        public List<Person> Parse(List<PersonVO> origin)
+        public List<Model.Person> Parse(List<VO.PersonVO> origin)
         {
             if (origin == null)
             {
@@ -54,7 +54,7 @@ namespace RestNet5.Data.Converter.Implementations
             return origin.Select(item => Parse(item)).ToList();
         }
 
-        public List<PersonVO> Parse(List<Person> origin)
+        public List<VO.PersonVO> Parse(List<Model.Person> origin)
         {
             if (origin == null)
             {
