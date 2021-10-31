@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestNet5.Business;
+using RestNet5.Data.VO;
 using RestNet5.Model;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace RestNet5.Controllers
         }
 
         [HttpPost()]
-        public IActionResult Post([FromBody] Book book)
+        public IActionResult Post([FromBody] BookVO book)
         {
             if (book == null)
             {
@@ -53,7 +54,7 @@ namespace RestNet5.Controllers
         }
 
         [HttpPut()]
-        public IActionResult Put([FromBody] Book book)
+        public IActionResult Put([FromBody] BookVO book)
         {
             if (book == null)
             {

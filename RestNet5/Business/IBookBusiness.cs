@@ -1,4 +1,5 @@
-﻿using RestNet5.Model;
+﻿using RestNet5.Data.VO;
+using RestNet5.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,10 @@ namespace RestNet5.Business
 {
     public interface IBookBusiness
     {
-        Book Create(Book book);
-        Book Update(Book book);
-        Book FindById(long id);
-        List<Book> FindAll();
+        BookVO Create(BookVO book);
+        BookVO Update(BookVO book);
+        BookVO FindById(long id);
+        List<BookVO> FindAll();
         void Delete(long id);
 
     }

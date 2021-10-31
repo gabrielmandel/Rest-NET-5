@@ -57,3 +57,4 @@ C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\obj\Debug\net5.0\RestNet5.dll
 C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\obj\Debug\net5.0\ref\RestNet5.dll
 C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\obj\Debug\net5.0\RestNet5.pdb
 C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\obj\Debug\net5.0\RestNet5.genruntimeconfig.cache
+C:\Desenvolvimento-Gabriel\Rest-NET-5\RestNet5\obj\Debug\net5.0\RestNet5.csproj.AssemblyReference.cache

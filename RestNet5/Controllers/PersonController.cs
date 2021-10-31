@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestNet5.Model;
 using RestNet5.Business.Implementations;
+using RestNet5.Data.VO;
 
 namespace RestNet5.Controllers
 {
@@ -42,7 +43,7 @@ namespace RestNet5.Controllers
         }
 
         [HttpPost()]
-        public IActionResult Post([FromBody] Person person)
+        public IActionResult Post([FromBody] PersonVO person)
         {
             if (person == null)
             {
@@ -53,7 +54,7 @@ namespace RestNet5.Controllers
         }
 
         [HttpPut()]
-        public IActionResult Put([FromBody] Person person)
+        public IActionResult Put([FromBody] PersonVO person)
         {
             if (person == null)
             {
