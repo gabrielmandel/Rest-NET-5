@@ -15,6 +15,8 @@ namespace RestNet5.Business.Implementations
         public BookBusinessImplementation(IRepository<Book> repository)
         {
             _repository = repository;
+            _converter = new BookConverter();
+
         }
 
         public BookVO Create(BookVO book)

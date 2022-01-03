@@ -5031,26 +5031,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gabri\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\gabriel.dorneles\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Desenvolvimento-Gabriel\\Rest-NET-5\\RestNet5\\RestNet5.csproj",
+      "projectUniqueName": "C:\\Users\\gabriel.dorneles\\Desktop\\Rest-NET-5\\RestNet5\\RestNet5.csproj",
       "projectName": "RestNet5",
-      "projectPath": "C:\\Desenvolvimento-Gabriel\\Rest-NET-5\\RestNet5\\RestNet5.csproj",
-      "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
-      "outputPath": "C:\\Desenvolvimento-Gabriel\\Rest-NET-5\\RestNet5\\obj\\",
+      "projectPath": "C:\\Users\\gabriel.dorneles\\Desktop\\Rest-NET-5\\RestNet5\\RestNet5.csproj",
+      "packagesPath": "C:\\Users\\gabriel.dorneles\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\gabriel.dorneles\\Desktop\\Rest-NET-5\\RestNet5\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\gabriel.dorneles\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5123,7 +5116,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

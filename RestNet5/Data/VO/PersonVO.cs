@@ -1,21 +1,22 @@
-﻿using System.Text.Json.Serialization;
+﻿using RestNet5.Hypermedia;
+using RestNet5.Hypermedia.Abstract;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace RestNet5.Data.VO
 {
-    public class PersonVO
+    public class PersonVO : ISupportsHypermedia
     {
-        [JsonPropertyName("code")]
         public long Id { get; set; }
-
-        [JsonPropertyName("name")]
+        [JsonPropertyName("first_name")]
         public string FirstName { get; set; }
-
         [JsonPropertyName("last_name")]
         public string LastName { get; set; }
-        [JsonIgnore]
+
         public string Address{ get; set; }
 
-        [JsonPropertyName("sex")]
         public string Gender { get; set; }
+
+        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
     }
 }
