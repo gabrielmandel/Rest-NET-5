@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestNet5.Business;
 using RestNet5.Data.VO;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 namespace RestNet5.Controllers
 {
     [ApiController]
+    [Authorize("Bearer")]
     [Route("api/[controller]")]
     public class BookController : ControllerBase
     {

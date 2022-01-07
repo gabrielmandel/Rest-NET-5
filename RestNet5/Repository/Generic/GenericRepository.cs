@@ -27,7 +27,7 @@ namespace RestNet5.Repository.Generic
                 _context.SaveChanges();
                 return item;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

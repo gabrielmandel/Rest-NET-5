@@ -8,11 +8,13 @@ using RestNet5.Model;
 using RestNet5.Business.Implementations;
 using RestNet5.Data.VO;
 using RestNet5.Hypermedia.Filter;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RestNet5.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize("Bearer")]
     public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;

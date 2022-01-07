@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Rewrite;
@@ -5,16 +7,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RestNet5.Business;
 using RestNet5.Business.Implementations;
+using RestNet5.Configurations;
 using RestNet5.Hypermedia.Enricher;
 using RestNet5.Hypermedia.Filter;
 using RestNet5.Model.Context;
+using RestNet5.Repository;
 using RestNet5.Repository.Generic;
+using RestNet5.Services;
+using RestNet5.Services.Implementations;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace RestNet5
 {
@@ -37,11 +46,46 @@ namespace RestNet5
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(o => o.AddDefaultPolicy(b => 
+            var tokenConfig = new TokenConfiguration();
+
+            new ConfigureFromConfigurationOptions<TokenConfiguration>(
+                    Configuration.GetSection("TokenConfigurations")
+                ).Configure(tokenConfig);
+
+            services.AddSingleton(tokenConfig);
+
+            services.AddAuthentication(options =>
             {
-                b.AllowAnyOrigin();
-                b.AllowAnyMethod();
-                b.AllowAnyHeader();
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = tokenConfig.Issuer,
+                        ValidAudience = tokenConfig.Audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfig.Secret))
+                    };
+                });
+
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+                    
+            });
+
+            services.AddCors(o => o.AddDefaultPolicy(b =>
+            {
+                b.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
             }));
 
             services.AddControllers();
@@ -63,7 +107,14 @@ namespace RestNet5
             //Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
             services.AddScoped<IBookBusiness, BookBusinessImplementation>();
+            services.AddScoped<ILoginBusiness, LoginBusinessImplementation>();
+
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddTransient<ITokenService, TokenService>();
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -88,7 +139,7 @@ namespace RestNet5
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
+
             }
 
             app.UseHttpsRedirection();
@@ -104,7 +155,7 @@ namespace RestNet5
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RestNet5 v1"));
 
             var option = new RewriteOptions();
-            option.AddRedirect("^$","swagger");
+            option.AddRedirect("^$", "swagger");
 
             app.UseRewriter(option);
 
