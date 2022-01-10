@@ -71,6 +71,14 @@ namespace RestNet5.Controllers
             return Ok(_personBusiness.Update(person));
         }
 
+        [HttpPatch]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Patch(long id)
+        {
+            var person = _personBusiness.Disable(id);
+            return Ok(person);
+        }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {

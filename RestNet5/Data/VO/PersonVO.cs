@@ -1,6 +1,7 @@
 ﻿using RestNet5.Hypermedia;
 using RestNet5.Hypermedia.Abstract;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace RestNet5.Data.VO
@@ -16,6 +17,8 @@ namespace RestNet5.Data.VO
         public string Address{ get; set; }
 
         public string Gender { get; set; }
+
+        public bool Enabled { get; set; }
 
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
     }

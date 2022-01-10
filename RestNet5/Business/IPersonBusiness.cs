@@ -9,6 +9,7 @@ namespace RestNet5.Business.Implementations
         PersonVO Update(PersonVO person);
         PersonVO FindById(long id);
         List<PersonVO> FindAll();
+        public PersonVO Disable(long id);
         void Delete(long id);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using RestNet5.Data.Converter.Implementations;
 using RestNet5.Data.VO;
 using RestNet5.Model;
+using RestNet5.Repository;
 using RestNet5.Repository.Generic;
 using System.Collections.Generic;
 
@@ -8,12 +9,12 @@ namespace RestNet5.Business.Implementations
 {
     public class PersonBusinessImplementation : IPersonBusiness
     {
-        private readonly IRepository<Person> _repository;
+        private readonly IPersonRepository _repository;
         
         private readonly PersonConverter _converter;
 
 
-        public PersonBusinessImplementation(IRepository<Person> repository)
+        public PersonBusinessImplementation(IPersonRepository repository)
         {
             _repository = repository;
             _converter = new PersonConverter();
@@ -48,6 +49,13 @@ namespace RestNet5.Business.Implementations
         public void Delete(long id)
         {
             _repository.Delete(id);
+        }
+
+        public PersonVO Disable(long id)
+        {
+            var person = _repository.Disable(id);
+
+            return _converter.Parse(person);
         }
     }
 }

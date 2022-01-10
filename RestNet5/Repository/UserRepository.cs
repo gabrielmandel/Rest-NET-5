@@ -31,6 +31,19 @@ namespace RestNet5.Repository
             return _context.Users.ToList().SingleOrDefault(u => u.UserName == userName);
         }
 
+        public bool RevokeToken(string userName)
+        {
+            var user = _context.Users.ToList().SingleOrDefault(u => u.UserName == userName);
+
+            if (user is null) return false;
+
+            user.RefreshToken = null;
+
+            _context.SaveChanges();
+
+            return true;
+        }
+
         public User RefreshUserInfo(User user)
         {
             if (!_context.Users.Any(u => u.Id.Equals(user.Id))) return null;
@@ -64,6 +77,5 @@ namespace RestNet5.Repository
             return BitConverter.ToString(hashedBytes);
         }
 
-     
     }
 }

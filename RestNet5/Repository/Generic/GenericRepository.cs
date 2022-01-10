@@ -7,10 +7,10 @@ using System.Linq;
 
 namespace RestNet5.Repository.Generic
 {
-    public class GenericRepository<T> : IRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IPersonRepository<T> where T : BaseEntity
     {
 
-        private MySqlContext _context;
+        protected MySqlContext _context;
         private DbSet<T> dataset;
 
         public GenericRepository(MySqlContext context)

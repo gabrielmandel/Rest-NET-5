@@ -82,5 +82,10 @@ namespace RestNet5.Business.Implementations
                 user.RefreshToken
                 );
         }
+
+        public bool RevokeToken(string userName)
+        {
+            return _userRepository.RevokeToken(userName);
+        }
     }
 }
