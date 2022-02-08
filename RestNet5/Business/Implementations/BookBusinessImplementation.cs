@@ -8,11 +8,11 @@ namespace RestNet5.Business.Implementations
 {
     public class BookBusinessImplementation : IBookBusiness
     {
-        private readonly IPersonRepository<Book> _repository;
+        private readonly IRepository<Book> _repository;
 
         private readonly BookConverter _converter;
 
-        public BookBusinessImplementation(IPersonRepository<Book> repository)
+        public BookBusinessImplementation(IRepository<Book> repository)
         {
             _repository = repository;
             _converter = new BookConverter();

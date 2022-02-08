@@ -2,6 +2,7 @@
 using RestNet5.Model.Context;
 using RestNet5.Repository.Generic;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RestNet5.Repository
@@ -31,13 +32,33 @@ namespace RestNet5.Repository
                 }
                 catch (Exception)
                 {
-
                     throw;
-
                 }
             }
 
             return user;
+        }
+
+        public List<Person> FindByName(string firstName, string lastName)
+        {
+            if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
+            {
+                return _context.People.Where(p => p.FirstName.Contains(firstName) && p.LastName.Contains(lastName)).ToList();
+
+            }
+            else if (string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
+            {
+                return _context.People.Where(p => p.LastName.Contains(lastName)).ToList();
+
+            }
+            else if (!string.IsNullOrEmpty(firstName) && string.IsNullOrEmpty(lastName))
+            {
+                var cu = _context.People.Where(p => p.FirstName.Contains(firstName)).ToList();
+                return cu;
+
+            }
+
+            return null;
         }
     }
 }

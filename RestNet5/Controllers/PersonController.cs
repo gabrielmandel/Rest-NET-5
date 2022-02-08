@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RestNet5.Model;
 using RestNet5.Business.Implementations;
 using RestNet5.Data.VO;
 using RestNet5.Hypermedia.Filter;
-using Microsoft.AspNetCore.Authorization;
 
 namespace RestNet5.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize("Bearer")]
+    //[Authorize("Bearer")]
     public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;
@@ -26,11 +21,11 @@ namespace RestNet5.Controllers
             _personBusiness = personBusiness;
         }
 
-        [HttpGet]
+        [HttpGet("{sortDirection}/{pageSize}/{page}")]
         [TypeFilter(typeof(HyperMediaFilter))]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery] string name, string sortDirection, int pageSize, int page)
         {
-            return Ok(_personBusiness.FindAll());
+            return Ok(_personBusiness.FindWithPagedSearch(name,sortDirection,pageSize,page));
         }   
         
         [HttpGet("{id}")]
@@ -38,6 +33,20 @@ namespace RestNet5.Controllers
         public IActionResult Get(long id)
         {
             var person = _personBusiness.FindById(id);
+
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(person);
+        }
+
+        [HttpGet("findPersonByName")]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Get([FromQuery] string firstName, [FromQuery] string lastName)
+        {
+            var person = _personBusiness.FindByName(firstName, lastName);
 
             if (person == null)
             {

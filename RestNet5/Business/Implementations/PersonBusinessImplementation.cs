@@ -1,8 +1,7 @@
 ﻿using RestNet5.Data.Converter.Implementations;
 using RestNet5.Data.VO;
-using RestNet5.Model;
+using RestNet5.Hypermedia.Utils;
 using RestNet5.Repository;
-using RestNet5.Repository.Generic;
 using System.Collections.Generic;
 
 namespace RestNet5.Business.Implementations
@@ -10,7 +9,7 @@ namespace RestNet5.Business.Implementations
     public class PersonBusinessImplementation : IPersonBusiness
     {
         private readonly IPersonRepository _repository;
-        
+
         private readonly PersonConverter _converter;
 
 
@@ -32,10 +31,41 @@ namespace RestNet5.Business.Implementations
         {
             return _converter.Parse(_repository.FindById(id));
         }
+        public List<PersonVO> FindByName(string firstName, string lastName)
+        {
+            return _converter.Parse(_repository.FindByName(firstName, lastName));
+        }
 
         public List<PersonVO> FindAll()
         {
             return _converter.Parse(_repository.FindAll());
+        }
+
+        public PagedSearchVO<PersonVO> FindWithPagedSearch(string name, string sortDirection, int pageSize, int currentPage)
+        {
+            var sort = (!string.IsNullOrEmpty(sortDirection) && !sortDirection.Equals("desc")) ? "asc" : "desc";
+            var size = (pageSize < 1) ? 10 : pageSize;
+            var offset = currentPage > 0 ? (currentPage - 1) * size: 0;
+
+            string countQuery = "select count(*) from person p where 1=1 ";
+            if (!string.IsNullOrEmpty(name)) countQuery += $" and p.first_name like '%{name}%' ";
+
+            string query = "select * from person p where 1=1 ";
+            if (!string.IsNullOrEmpty(name)) query += $" and p.first_name like '%{name}%' ";
+
+            query += $" order by p.first_name {sort} limit {size} offset {offset}";
+            
+            var people = _repository.FindWithPagedSearch(query);
+            int totalResults = _repository.GetCount(countQuery);
+
+            return new PagedSearchVO<PersonVO>
+            {
+                CurrentPage = currentPage,
+                List = _converter.Parse(people),
+                PageSize = size,
+                SortDirections = sort,
+                TotalResults = totalResults
+            };
         }
 
         public PersonVO Update(PersonVO person)
@@ -57,5 +87,6 @@ namespace RestNet5.Business.Implementations
 
             return _converter.Parse(person);
         }
+
     }
 }

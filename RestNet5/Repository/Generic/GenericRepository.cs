@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace RestNet5.Repository.Generic
 {
-    public class GenericRepository<T> : IPersonRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {
 
         protected MySqlContext _context;
@@ -44,7 +44,7 @@ namespace RestNet5.Repository.Generic
                     dataset.Remove(result);
                     _context.SaveChanges();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -73,7 +73,7 @@ namespace RestNet5.Repository.Generic
                     _context.SaveChanges();
                     return result;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -88,5 +88,27 @@ namespace RestNet5.Repository.Generic
             return dataset.Any(prop => prop.Id.Equals(id));
         }
 
+        public List<T> FindWithPagedSearch(string query)
+        {
+            return dataset.FromSqlRaw<T>(query).ToList();
+        }
+
+        public int GetCount(string query)
+        {
+            string result = default;
+
+            using (var conn = _context.Database.GetDbConnection())
+            {
+                conn.Open();
+
+                using (var command = conn.CreateCommand())
+                {
+                    command.CommandText = query;
+                    result = command.ExecuteScalar().ToString();
+                }
+            }
+
+                return int.Parse(result);
+        }
     }
 }
